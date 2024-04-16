@@ -7,9 +7,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
- * @notice A contract that stores apps and users.
+ * @notice A contract that stores AI apps and users.
  */
-contract App is ERC721URIStorage, ERC721Holder {
+contract AIApp is ERC721URIStorage, ERC721Holder {
     struct Params {
         uint cost;
         address token;
@@ -24,7 +24,7 @@ contract App is ERC721URIStorage, ERC721Holder {
     mapping(uint tokenId => mapping(address user => uint paymentDate))
         private _payments;
 
-    constructor() ERC721("AI World App", "AIWA") {}
+    constructor() ERC721("AI App", "AIA") {}
 
     function create(string memory tokenURI) public {
         uint256 tokenId = _nextTokenId++;

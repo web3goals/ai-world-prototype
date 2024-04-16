@@ -1,19 +1,16 @@
-import {
-  loadFixture,
-  time,
-} from "@nomicfoundation/hardhat-toolbox/network-helpers";
-import { ethers } from "hardhat";
+import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import { expect } from "chai";
+import { ethers } from "hardhat";
 
-describe("App", function () {
+describe("AIApp", function () {
   async function initFixture() {
     // Get signers
     const [deployer, userOne, userTwo, userThree] = await ethers.getSigners();
     // Deploy contracts
     const usdTokenContractFactory = await ethers.getContractFactory("USDToken");
     const usdTokenContract = await usdTokenContractFactory.deploy();
-    const appContractFactory = await ethers.getContractFactory("App");
-    const appContract = await appContractFactory.deploy();
+    const aiAppContractFactory = await ethers.getContractFactory("AIApp");
+    const aiAppContract = await aiAppContractFactory.deploy();
     // Send usd tokens to users
     await usdTokenContract
       .connect(deployer)
@@ -30,45 +27,49 @@ describe("App", function () {
       userTwo,
       userThree,
       usdTokenContract,
-      appContract,
+      aiAppContract,
     };
   }
 
   it("Should support the main flow", async function () {
-    const { userOne, userTwo, userThree, usdTokenContract, appContract } =
+    const { userOne, userTwo, userThree, usdTokenContract, aiAppContract } =
       await loadFixture(initFixture);
-    // Create app
-    await expect(appContract.connect(userOne).create("ipfs://1")).to.be.not
+    // Create ai app
+    await expect(aiAppContract.connect(userOne).create("ipfs://1")).to.be.not
       .reverted;
-    const appId = (await appContract.getNextTokenId()) - 1n;
+    const aiAppId = (await aiAppContract.getNextTokenId()) - 1n;
     // Set params
     await expect(
-      appContract
+      aiAppContract
         .connect(userOne)
-        .setParams(appId, ethers.parseEther("2"), usdTokenContract.getAddress())
+        .setParams(
+          aiAppId,
+          ethers.parseEther("2"),
+          usdTokenContract.getAddress()
+        )
     ).to.be.not.reverted;
     // Approve
     await expect(
       usdTokenContract
         .connect(userTwo)
-        .approve(appContract.getAddress(), ethers.MaxUint256)
+        .approve(aiAppContract.getAddress(), ethers.MaxUint256)
     ).to.be.not.reverted;
     // Unlock
     await expect(
-      appContract.connect(userTwo).unlock(appId)
+      aiAppContract.connect(userTwo).unlock(aiAppId)
     ).to.changeTokenBalances(
       usdTokenContract,
-      [userTwo, appContract],
+      [userTwo, aiAppContract],
       [ethers.parseEther("-2"), ethers.parseEther("2")]
     );
     // Check user
-    expect(await appContract.isUser(appId, userTwo)).to.be.equal(true);
+    expect(await aiAppContract.isUser(aiAppId, userTwo)).to.be.equal(true);
     // Withraw
     await expect(
-      appContract.connect(userOne).withdraw(appId, userThree)
+      aiAppContract.connect(userOne).withdraw(aiAppId, userThree)
     ).to.changeTokenBalances(
       usdTokenContract,
-      [userThree, appContract],
+      [userThree, aiAppContract],
       [ethers.parseEther("2"), ethers.parseEther("-2")]
     );
   });
