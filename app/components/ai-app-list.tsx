@@ -180,22 +180,18 @@ function AIAppCardHeader(props: {
         <p className="text-xl font-bold">{aiAppMetadata?.label}</p>
         <div className="flex flex-col gap-3 mt-4">
           <div className="flex flex-col md:flex-row md:gap-3">
-            <p className="min-w-[140px] text-sm text-muted-foreground">
-              Chain:
-            </p>
+            <p className="min-w-[80px] text-sm text-muted-foreground">Chain:</p>
             <p className="text-sm break-all">{props.contracts.chain.name}</p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">
-            <p className="min-w-[140px] text-sm text-muted-foreground">Cost:</p>
+            <p className="min-w-[80px] text-sm text-muted-foreground">Cost:</p>
             <p className="text-sm break-all">
               {formatEther(aiAppParams?.cost || BigInt(0))}{" "}
               {aiAppSubscriptionTokenSymbol}
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">
-            <p className="min-w-[140px] text-sm text-muted-foreground">
-              Token:
-            </p>
+            <p className="min-w-[80px] text-sm text-muted-foreground">Token:</p>
             <p className="text-sm break-all">
               <a
                 href={`${props.contracts.chain.blockExplorers?.default?.url}/address/${aiAppParams?.token}`}
@@ -207,7 +203,7 @@ function AIAppCardHeader(props: {
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">
-            <p className="min-w-[140px] text-sm text-muted-foreground">
+            <p className="min-w-[80px] text-sm text-muted-foreground">
               Balance:
             </p>
             <p className="text-sm break-all">
@@ -216,7 +212,7 @@ function AIAppCardHeader(props: {
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">
-            <p className="min-w-[140px] text-sm text-muted-foreground">
+            <p className="min-w-[80px] text-sm text-muted-foreground">
               Revenue:
             </p>
             <p className="text-sm break-all">
@@ -225,7 +221,7 @@ function AIAppCardHeader(props: {
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">
-            <p className="min-w-[140px] text-sm text-muted-foreground">
+            <p className="min-w-[80px] text-sm text-muted-foreground">
               Created:
             </p>
             <p className="text-sm break-all">
