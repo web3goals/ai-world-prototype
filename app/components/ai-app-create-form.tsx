@@ -3,6 +3,7 @@
 import { siteConfig } from "@/config/site";
 import { aiAppAbi } from "@/contracts/abi/ai-app-abi";
 import useError from "@/hooks/useError";
+import { executeViaSmartAccount } from "@/lib/actions";
 import { uploadJsonToIpfs } from "@/lib/ipfs";
 import { chainToSiteConfigContracts } from "@/lib/site-config";
 import { AIAppMetadata } from "@/types/ai-app-metadata";
@@ -11,7 +12,12 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { isAddress, parseEther, parseEventLogs } from "viem";
+import {
+  encodeFunctionData,
+  isAddress,
+  parseEther,
+  parseEventLogs,
+} from "viem";
 import { useAccount, usePublicClient, useWalletClient } from "wagmi";
 import { z } from "zod";
 import { Button } from "./ui/button";
@@ -104,7 +110,16 @@ export function AIAppCreateForm() {
       // Send request to create an ai app
       let createTxHash;
       if (contracts.accountAbstractionSuported) {
-        // TODO: Implement
+        createTxHash = await executeViaSmartAccount(
+          address,
+          contracts.aiApp,
+          encodeFunctionData({
+            abi: aiAppAbi,
+            functionName: "create",
+            args: [metadataUri],
+          }),
+          contracts
+        );
       } else {
         createTxHash = await walletClient.writeContract({
           address: contracts.aiApp,
@@ -127,7 +142,16 @@ export function AIAppCreateForm() {
       // Send request to set ai app params
       let setParamstxHash;
       if (contracts.accountAbstractionSuported) {
-        // TODO: Implement
+        setParamstxHash = await executeViaSmartAccount(
+          address,
+          contracts.aiApp,
+          encodeFunctionData({
+            abi: aiAppAbi,
+            functionName: "setParams",
+            args: [createdAIAppId, cost, token],
+          }),
+          contracts
+        );
       } else {
         setParamstxHash = await walletClient.writeContract({
           address: contracts.aiApp,

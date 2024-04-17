@@ -3,6 +3,7 @@
 import { SiteConfigContracts } from "@/config/site";
 import { aiAppAbi } from "@/contracts/abi/ai-app-abi";
 import useMetadataLoader from "@/hooks/useMetadataLoader";
+import { getSmartAccountAddress } from "@/lib/actions";
 import { addressToShortAddress } from "@/lib/converters";
 import { AIAppMetadata } from "@/types/ai-app-metadata";
 import { useEffect, useState } from "react";
@@ -50,7 +51,10 @@ export function AIAppList(props: { contracts: SiteConfigContracts }) {
     setSmartAccountAddress(undefined);
     if (address) {
       if (props.contracts.accountAbstractionSuported) {
-        // TODO: Implement
+        getSmartAccountAddress(address, props.contracts).then(
+          (smartAccountAddress) =>
+            setSmartAccountAddress(smartAccountAddress as `0x${string}`)
+        );
       } else {
         setSmartAccountAddress(address);
       }
