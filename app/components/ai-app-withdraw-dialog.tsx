@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 export function AIAppWithdrawDialog(props: {
   aiApp: string;
   contracts: SiteConfigContracts;
-  onWithdraw: () => {};
+  onWithdraw: () => void;
 }) {
   return <Button variant="outline">Withdraw Balance</Button>;
 }

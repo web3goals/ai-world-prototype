@@ -86,7 +86,7 @@ export function AIAppCreateForm() {
       let cost = parseEther(String(values.cost));
       let token;
       if (!isAddress(values.token)) {
-        throw new Error("Subscription token address is incorrect");
+        throw new Error("Token address is incorrect");
       } else {
         token = values.token as `0x${string}`;
       }

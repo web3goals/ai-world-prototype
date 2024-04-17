@@ -103,7 +103,7 @@ function AIAppCardHeader(props: {
   contracts: SiteConfigContracts;
 }) {
   /**
-   * Define product data
+   * Define params
    */
   const {
     data: aiAppParams,
@@ -116,6 +116,10 @@ function AIAppCardHeader(props: {
     args: [BigInt(props.aiApp)],
     chainId: props.contracts.chain.id,
   });
+
+  /**
+   * Define metadata
+   */
   const { data: aiAppMetadataUri, isFetched: isAiAppMetadataUriFetched } =
     useReadContract({
       address: props.contracts.aiApp,
@@ -128,16 +132,14 @@ function AIAppCardHeader(props: {
     useMetadataLoader<AIAppMetadata>(aiAppMetadataUri);
 
   /**
-   * Define product subscription token symbol
+   * Define token symbol
    */
-  const {
-    data: aiAppSubscriptionTokenSymbol,
-    isFetched: isAiAppSubscriptionTokenSymbol,
-  } = useReadContract({
-    address: aiAppParams?.token || zeroAddress,
-    abi: erc20Abi,
-    functionName: "symbol",
-  });
+  const { data: aiAppTokenSymbol, isFetched: isAiAppTokenSymbol } =
+    useReadContract({
+      address: aiAppParams?.token || zeroAddress,
+      abi: erc20Abi,
+      functionName: "symbol",
+    });
 
   function OpenPageButton() {
     return (
@@ -159,7 +161,7 @@ function AIAppCardHeader(props: {
     !isAiAppParamsFetched ||
     !isAiAppMetadataUriFetched ||
     !isAiAppMetadataLoaded ||
-    !isAiAppSubscriptionTokenSymbol
+    !isAiAppTokenSymbol
   ) {
     return <Skeleton className="w-full h-8" />;
   }
@@ -186,8 +188,7 @@ function AIAppCardHeader(props: {
           <div className="flex flex-col md:flex-row md:gap-3">
             <p className="min-w-[80px] text-sm text-muted-foreground">Cost:</p>
             <p className="text-sm break-all">
-              {formatEther(aiAppParams?.cost || BigInt(0))}{" "}
-              {aiAppSubscriptionTokenSymbol}
+              {formatEther(aiAppParams?.cost || BigInt(0))} {aiAppTokenSymbol}
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">
@@ -208,7 +209,7 @@ function AIAppCardHeader(props: {
             </p>
             <p className="text-sm break-all">
               {formatEther(aiAppParams?.balance || BigInt(0))}{" "}
-              {aiAppSubscriptionTokenSymbol}
+              {aiAppTokenSymbol}
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">
@@ -217,7 +218,7 @@ function AIAppCardHeader(props: {
             </p>
             <p className="text-sm break-all">
               {formatEther(aiAppParams?.revenue || BigInt(0))}{" "}
-              {aiAppSubscriptionTokenSymbol}
+              {aiAppTokenSymbol}
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:gap-3">

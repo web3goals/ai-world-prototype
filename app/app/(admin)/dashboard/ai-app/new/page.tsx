@@ -1,7 +1,7 @@
 import { AIAppCreateForm } from "@/components/ai-app-create-form";
 import { Separator } from "@/components/ui/separator";
 
-export default function DashboardNewAppPage() {
+export default function DashboardNewAIAppPage() {
   return (
     <div className="container py-10 lg:px-80">
       <div className="space-y-0.5">
