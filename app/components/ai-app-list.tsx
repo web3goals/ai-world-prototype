@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Skeleton } from "./ui/skeleton";
+import { toast } from "./ui/use-toast";
 
 const LIMIT = 42;
 
@@ -156,9 +157,19 @@ function AIAppCardHeader(props: {
     );
   }
 
-  // TODO: Show toast that feature is not implemted
   function EditButton() {
-    return <Button variant="outline">Edit</Button>;
+    return (
+      <Button
+        variant="outline"
+        onClick={() =>
+          toast({
+            title: "This feature is under development 🛠️",
+          })
+        }
+      >
+        Edit
+      </Button>
+    );
   }
 
   if (
