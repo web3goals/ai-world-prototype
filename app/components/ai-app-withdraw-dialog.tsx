@@ -1,3 +1,5 @@
+"use client";
+
 import { SiteConfigContracts } from "@/config/site";
 import { Button } from "./ui/button";
 

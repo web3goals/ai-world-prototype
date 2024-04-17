@@ -1,3 +1,5 @@
+"use client";
+
 import { SiteConfigContracts } from "@/config/site";
 import { aiAppAbi } from "@/contracts/abi/ai-app-abi";
 import useError from "@/hooks/useError";
