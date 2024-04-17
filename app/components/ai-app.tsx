@@ -93,7 +93,12 @@ export function AIApp(props: {
       </p>
       <Separator className="my-8" />
       {isAiAppUser ? (
-        <AIAppConversation />
+        <AIAppConversation
+          aiAppIcon={aiAppMetadata?.icon}
+          aiAppLabel={aiAppMetadata?.label}
+          aiAppModel={aiAppMetadata?.model}
+          aiAppPrompt={aiAppMetadata?.prompt}
+        />
       ) : (
         <AIAppUnlockForm
           aiApp={props.aiApp}

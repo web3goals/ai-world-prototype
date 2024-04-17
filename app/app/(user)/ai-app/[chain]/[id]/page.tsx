@@ -11,7 +11,7 @@ export default function AIAppPage({
   const { contracts } = useSiteConfigContracts(params.chain);
 
   return (
-    <div className="container py-10 lg:px-80">
+    <div className="container py-10 lg:px-96">
       <AIApp aiApp={params.id} contracts={contracts} />
     </div>
   );
