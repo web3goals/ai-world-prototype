@@ -81,7 +81,7 @@ export function AIApp(props: {
     <div className="flex flex-col items-start">
       <Avatar className="size-36">
         <AvatarImage src="" alt="Icon" />
-        <AvatarFallback className="text-5xl bg-slate-500">
+        <AvatarFallback className="text-5xl bg-primary">
           {aiAppMetadata?.icon}
         </AvatarFallback>
       </Avatar>

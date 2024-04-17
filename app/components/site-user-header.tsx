@@ -13,7 +13,9 @@ export function SiteUserHeader() {
           <Link href="/" className="flex items-center space-x-2">
             <span className="inline-block text-primary font-bold">
               {siteConfig.emoji}{" "}
-              <span className="hidden md:inline-block">{siteConfig.name}</span>
+              <span className="hidden md:inline-block text-secondary-foreground">
+                {siteConfig.name}
+              </span>
             </span>
           </Link>
         </div>

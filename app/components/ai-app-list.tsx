@@ -90,10 +90,10 @@ export function AIAppCard(props: {
   contracts: SiteConfigContracts;
 }) {
   return (
-    <div className="w-full flex flex-col items-center border rounded px-6 py-8">
+    <div className="w-full flex flex-col items-center border rounded px-6 py-8 bg-secondary">
       <AIAppCardHeader aiApp={props.aiApp} contracts={props.contracts} />
-      <Separator className="my-6" />
-      <AIAppCardSubscribers aiApp={props.aiApp} contracts={props.contracts} />
+      <Separator className="my-6 bg-secondary-foreground" />
+      <AIAppCardUsers aiApp={props.aiApp} contracts={props.contracts} />
     </div>
   );
 }
@@ -163,7 +163,7 @@ function AIAppCardHeader(props: {
     !isAiAppMetadataLoaded ||
     !isAiAppTokenSymbol
   ) {
-    return <Skeleton className="w-full h-8" />;
+    return <Skeleton className="w-full h-8 bg-secondary-foreground/20" />;
   }
 
   return (
@@ -172,7 +172,7 @@ function AIAppCardHeader(props: {
       <div>
         <Avatar className="size-16">
           <AvatarImage src="" alt="Icon" />
-          <AvatarFallback className="text-3xl bg-slate-500">
+          <AvatarFallback className="text-3xl bg-primary">
             {aiAppMetadata?.icon}
           </AvatarFallback>
         </Avatar>
@@ -246,10 +246,88 @@ function AIAppCardHeader(props: {
   );
 }
 
-// TODO: Implement
-function AIAppCardSubscribers(props: {
+function AIAppCardUsers(props: {
   aiApp: string;
   contracts: SiteConfigContracts;
 }) {
-  return <>...</>;
+  const { data: users } = useReadContract({
+    address: props.contracts.aiApp,
+    abi: aiAppAbi,
+    functionName: "getUsers",
+    args: [BigInt(props.aiApp)],
+    chainId: props.contracts.chain.id,
+  });
+
+  return (
+    <div className="w-full flex flex-row gap-4">
+      {/* Icon */}
+      <div>
+        <Avatar className="size-12">
+          <AvatarImage src="" alt="Icon" />
+          <AvatarFallback className="text-base bg-primary">👥</AvatarFallback>
+        </Avatar>
+      </div>
+      {/* Content */}
+      <div className="w-full">
+        <p className="text-base font-bold">Users</p>
+        {users ? (
+          <div className="flex flex-col gap-4 mt-4">
+            {users.length === 0 && (
+              <p className="text-sm text-muted-foreground">No users 😐</p>
+            )}
+            {users.map((user, index) => (
+              <AiAppCardUser
+                key={index}
+                aiApp={props.aiApp}
+                user={user}
+                contracts={props.contracts}
+              />
+            ))}
+          </div>
+        ) : (
+          <Skeleton className="w-full h-8 mt-4 bg-secondary-foreground/20" />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function AiAppCardUser(props: {
+  aiApp: string;
+  user: `0x${string}`;
+  contracts: SiteConfigContracts;
+}) {
+  const { data: paymentDate, isFetching: isPaymentDateFetching } =
+    useReadContract({
+      address: props.contracts.aiApp,
+      abi: aiAppAbi,
+      functionName: "getPaymentDate",
+      args: [BigInt(props.aiApp), props.user],
+      chainId: props.contracts.chain.id,
+    });
+
+  if (isPaymentDateFetching) {
+    return <Skeleton className="w-full h-5 bg-secondary-foreground/20" />;
+  }
+
+  return (
+    <>
+      <p className="text-sm">
+        <a
+          href={`${props.contracts.chain.blockExplorers?.default?.url}/address/${props.user}`}
+          target="_blank"
+          className="underline underline-offset-4"
+        >
+          {addressToShortAddress(props.user)}
+        </a>
+        <span className="text-muted-foreground">
+          {" "}
+          —{" "}
+          {Number(paymentDate) > 0
+            ? new Date(Number(paymentDate) * 1000).toLocaleString()
+            : "No payments"}
+        </span>
+      </p>
+    </>
+  );
 }
