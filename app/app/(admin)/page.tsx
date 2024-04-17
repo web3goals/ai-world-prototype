@@ -21,7 +21,7 @@ export default function LandingPage() {
         </Link>
       </section>
       {/* Image */}
-      <section className="flex flex-col items-center max-w-[480px]">
+      <section className="flex flex-col items-center max-w-[580px]">
         <Image
           src="/images/ai-apps.png"
           alt="AI Apps"
