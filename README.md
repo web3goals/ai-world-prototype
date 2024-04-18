@@ -4,7 +4,7 @@ A platform to launch and monetize AI apps without code.
 
 ## 🔗 Artifacts
 
-- Application - [ai-world.vercel.app](https://ai-world.vercel.app/)
+- Application - [ai-world-app.vercel.app](https://ai-world-app.vercel.app/)
 - Contracts (Morph Testnet):
   - AI App - [0x96E6AF6E9e400d0Cd6a4045F122df22BCaAAca59](https://explorer-testnet.morphl2.io/address/0x96E6AF6E9e400d0Cd6a4045F122df22BCaAAca59)
   - USD Token - [0x02008a8DBc938bd7930bf370617065B6B0c1221a](https://explorer-testnet.morphl2.io/address/0x02008a8DBc938bd7930bf370617065B6B0c1221a)
