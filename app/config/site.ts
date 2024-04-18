@@ -16,7 +16,7 @@ export type SiteConfigContracts = {
 export const siteConfig = {
   emoji: "👽",
   name: "AI World",
-  description: "A platform to launch and monetize AI apps without code",
+  description: "A crypto platform to launch and monetize AI apps without code",
   links: {
     github: "https://github.com/web3goals/ai-world-prototype",
   },
