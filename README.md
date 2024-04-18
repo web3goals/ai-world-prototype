@@ -14,4 +14,4 @@ A crypto platform to launch and monetize AI apps without code.
 
 ## Architecture
 
-...
+![Architecture](Architecture.png)
