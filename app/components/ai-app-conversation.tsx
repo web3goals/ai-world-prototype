@@ -51,6 +51,7 @@ export function AIAppConversation(props: {
         ];
         setMessages(msgs);
         const answer = await sendMessagesToOpenAI(msgs, "gpt-3.5-turbo", 0.7);
+        console.log("answer", answer);
         msgs.push({ role: "assistant", content: answer });
         setMessages(msgs);
         form.reset();
@@ -145,7 +146,9 @@ function AIAppConversationMessage(props: {
             ? props.aiAppLabel
             : addressToShortAddress(address)}
         </p>
-        <p className="text-sm mt-0.5">{props.message.content}</p>
+        <p className="text-sm mt-0.5 whitespace-pre-line">
+          {props.message.content}
+        </p>
       </div>
     </div>
   );
