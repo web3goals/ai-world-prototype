@@ -12,7 +12,7 @@ export default function LandingPage() {
         </h1>
         <h2 className="text-2xl font-normal tracking-tight text-center text-muted-foreground mt-4">
           Creation, hosting, analytics, customization and different models in
-          one place
+          one crypto platform
         </h2>
         <Link href="/dashboard">
           <Button className="mt-6" size="lg">
