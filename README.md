@@ -4,9 +4,7 @@ A crypto platform to launch and monetize AI apps without code.
 
 ## ⚡ About
 
-Today, the AI industry is the fastest growing industry in the world.
-
-But there is a big empty space in the infrastructure around this industry related to cryptotechnology.
+Today, the AI industry is the fastest growing industry in the world. But there is a big empty space in the infrastructure around this industry related to cryptotechnology.
 
 This platform is designed to solve that problem.
 
